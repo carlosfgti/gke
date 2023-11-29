@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.6.0
@@ -41,6 +41,7 @@ jobs:
 
       - name: Build, Scan and Push
         run: |
+          ls -la docker/
           docker build \
             --tag "${{env.GKE_REGION}}-docker.pkg.dev/${{env.GKE_PROJECT}}/${{env.GKE_PROJECT}}/${{env.GKE_APP_NAME}}:${{env.APP_VERSION}}" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
