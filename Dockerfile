@@ -90,7 +90,7 @@ COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY docker/nginx/sites-available/default.conf /etc/nginx/sites-available/default.conf
 
 # Copy the supervisor configuration file
-COPY docker/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./docker/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 
 # Start supervisor
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
