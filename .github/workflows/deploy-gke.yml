@@ -19,9 +19,6 @@ env:
   GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
   GKE_SA_EMAIL: ${{ secrets.GKE_SA_EMAIL }}
   APP_VERSION: ${{ github.sha }}
-  MANIFESTS_DIR: gcp/gke/deploy/manifests/old-onepet
-  SERVICE_MESH_DIR: gcp/gke/deploy/serviceMesh
-  APP_DIR: .
   GKE_APP_PORT: 80
   GITHUB_SHA: ${{ github.sha }}
 
@@ -66,12 +63,10 @@ jobs:
         export_default_credentials: true 
     - name: Deploy
       working-directory: k8s
-      run: |-
-        ls -la
-        envsubst < old_onepet.yaml | kubectl apply -f -
-        cat old_onepet.yaml
+      run: |
         envsubst < service.yaml | kubectl apply -f -
         envsubst < deployment.yaml | kubectl apply -f -
+        cat deployment.yaml
         kubectl get pods -o wide
         kubectl get svc -o wide 
         sleep 60
