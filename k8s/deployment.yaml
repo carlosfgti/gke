@@ -12,7 +12,7 @@ spec:
       labels:
         app: $GKE_APP_NAME
     spec:
-      serviceAccountName: $GKE_SERVICE_ACCOUNT
+      #serviceAccountName: $GKE_SERVICE_ACCOUNT
       containers:
       - name: $GKE_APP_NAME
         image: $GKE_REGION-docker.pkg.dev/$GKE_PROJECT/$GKE_PROJECT/$GKE_APP_NAME:$GITHUB_SHA
