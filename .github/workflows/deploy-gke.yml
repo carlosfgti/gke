@@ -57,10 +57,16 @@ jobs:
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.6.0
+      name: gcloud auth
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
         project_id: ${{ secrets.GKE_PROJECT }}
         export_default_credentials: true 
+
+    - name: Configure kubectl
+      run: |
+        gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
+
     - name: Deploy
       working-directory: k8s
       run: |
