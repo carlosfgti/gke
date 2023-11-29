@@ -62,12 +62,12 @@ jobs:
         project_id: ${{ secrets.GKE_PROJECT }}
         export_default_credentials: true
 
+    - name: Install gke-gcloud-auth-plugin
+      run: gcloud components install kubectl
+
     - name: Configure kubectl with gcloud
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
-
-    - name: Install gke-gcloud-auth-plugin
-      run: gcloud components install kubectl
 
     - name: Deploy
       working-directory: k8s
