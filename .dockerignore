@@ -1,0 +1,11 @@
+/docker
+/ssh
+/k8s
+.dockerignore
+.git
+*.tmp
+*.log
+*.bak
+*.swp
+.DS_Store
+node_modules
