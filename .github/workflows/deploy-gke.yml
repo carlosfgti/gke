@@ -10,7 +10,7 @@ env:
   GKE_CLUSTER: old-onepet-cluster
   GKE_APP_NAME: old-onepet
   GKE_SERVICE: old-onepet-service
-  GKE_SERVICE_ACCOUNT: webapp1-serviceaccount
+  GKE_SERVICE_ACCOUNT: old-onepet-serviceaccount
   GKE_NAMESPACE: old-onepet-namespace
   GKE_DEPLOYMENT_NAME: old-onepet-deployment
   GKE_REGION: us-east1
@@ -64,8 +64,8 @@ jobs:
     - name: Deploy
       working-directory: k8s
       run: |
-        envsubst < service.yaml | kubectl apply -f -
         envsubst < deployment.yaml | kubectl apply -f -
+        envsubst < service.yaml | kubectl apply -f -
         cat deployment.yaml
         kubectl get pods -o wide
         kubectl get svc -o wide 
