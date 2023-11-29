@@ -21,7 +21,7 @@ env:
   APP_VERSION: ${{ github.sha }}
   MANIFESTS_DIR: gcp/gke/deploy/manifests/old-onepet
   SERVICE_MESH_DIR: gcp/gke/deploy/serviceMesh
-  APP_DIR: ./
+  APP_DIR: .
   GKE_APP_PORT: 80
   GITHUB_SHA: ${{ github.sha }}
 
