@@ -1,0 +1,51 @@
+name: Deploy to GKE
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: old-onepet-cluster
+  GKE_APP_NAME: old-onepet
+  GKE_SERVICE: old-onepet-service
+  GKE_SERVICE_ACCOUNT: webapp1-serviceaccount
+  GKE_NAMESPACE: old-onepet-namespace
+  GKE_DEPLOYMENT_NAME: old-onepet-deployment
+  GKE_REGION: us-east1
+  GKE_ZONE: us-east1-c
+  GKE_ADDITIONAL_ZONE: us-east1-b
+  GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
+  GKE_SA_EMAIL: ${{ secrets.GKE_SA_EMAIL }}
+  APP_VERSION: ${{ github.sha }}
+  MANIFESTS_DIR: gcp/gke/deploy/manifests/old-onepet
+  SERVICE_MESH_DIR: gcp/gke/deploy/serviceMesh
+  APP_DIR: ./
+  GKE_APP_PORT: 80
+  GITHUB_SHA: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.6.0
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+          export_default_credentials: true
+
+      - name: Build, Scan and Push
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          docker build \
+            --tag "${{env.GKE_REGION}}-docker.pkg.dev/${{env.GKE_PROJECT}}/${{env.GKE_PROJECT}}/${{env.GKE_APP_NAME}}:${{env.APP_VERSION}}" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" \
+            .
+          gcloud auth configure-docker ${{env.GKE_REGION}}-docker.pkg.dev --quiet
+          docker push "${{env.GKE_REGION}}-docker.pkg.dev/${{env.GKE_PROJECT}}/${{env.GKE_PROJECT}}/${{env.GKE_APP_NAME}}:${{env.APP_VERSION}}"
