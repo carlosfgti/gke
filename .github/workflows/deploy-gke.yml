@@ -39,7 +39,7 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      - name: Build, Scan and Push
+      - name: Build
         run: |
           ls -la docker/supervisor/
           docker build \
@@ -49,3 +49,27 @@ jobs:
             .
           gcloud auth configure-docker ${{env.GKE_REGION}}-docker.pkg.dev --quiet
           docker push "${{env.GKE_REGION}}-docker.pkg.dev/${{env.GKE_PROJECT}}/${{env.GKE_PROJECT}}/${{env.GKE_APP_NAME}}:${{env.APP_VERSION}}"
+    
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Setup gcloud CLI
+    - uses: google-github-actions/setup-gcloud@v0.6.0
+      with:
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
+        export_default_credentials: true 
+    - name: Deploy
+      working-directory: ${{env.MANIFESTS_DIR}}
+      run: |-
+        envsubst < old_onepet.yaml | kubectl apply -f -
+        envsubst < service.yaml | kubectl apply -f -
+        envsubst < deployment.yaml | kubectl apply -f -
+        kubectl get pods -o wide
+        kubectl get svc -o wide 
+        sleep 60
