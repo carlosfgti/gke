@@ -1,6 +1,7 @@
 /docker
 /ssh
 /k8s
+/terraform
 .dockerignore
 .git
 *.tmp
