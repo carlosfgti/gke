@@ -55,15 +55,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@v0.6.0
-      name: gcloud auth
+    - name: Set up Google Cloud SDK
+      uses: actions/setup-gcloud@v0.5.1
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ secrets.GKE_PROJECT }}
-        export_default_credentials: true 
+        export_default_credentials: true
 
-    - name: Configure kubectl
+    - name: Configure kubectl with gcloud
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
 
