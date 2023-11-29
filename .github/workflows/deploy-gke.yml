@@ -65,9 +65,11 @@ jobs:
         project_id: ${{ secrets.GKE_PROJECT }}
         export_default_credentials: true 
     - name: Deploy
-      working-directory: ${{env.MANIFESTS_DIR}}
+      working-directory: k8s
       run: |-
+        ls -la
         envsubst < old_onepet.yaml | kubectl apply -f -
+        cat old_onepet.yaml
         envsubst < service.yaml | kubectl apply -f -
         envsubst < deployment.yaml | kubectl apply -f -
         kubectl get pods -o wide
