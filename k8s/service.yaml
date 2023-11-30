@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: $GKE_SERVICE
 spec:
-  # serviceAccountName: $GKE_SERVICE_ACCOUNT
-  type: LoadBalancer
   selector:
     app: $GKE_APP_NAME
+  type: ClusterIP
   ports:
-  - port: 80
-    targetPort: 80
+  - name: $GKE_SERVICE
+    port: 9000
+    targetPort: 9000
+    protocol: TCP
