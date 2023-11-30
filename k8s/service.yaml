@@ -1,13 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: $GKE_SERVICE
+  name: example-service
 spec:
   selector:
-    app: $GKE_APP_NAME
-  type: ClusterIP
+    app: example-app
   ports:
-  - name: $GKE_SERVICE
-    port: 9000
+  - port: 9000
     targetPort: 9000
-    protocol: TCP
+    name: fastcgi
