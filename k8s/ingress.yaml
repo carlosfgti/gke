@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: php-fpm-ingress
+  annotations:
+    spec.ingressClassName: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /index.php
+spec:
+  rules:
+  - host: "www.laravelexpert.com.br"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: $GKE_SERVICE
+            port:
+              number: 9000
