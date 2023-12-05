@@ -14,7 +14,7 @@ env:
   GKE_NAMESPACE: old-onepet-namespace
   GKE_DEPLOYMENT_NAME: old-onepet-deployment
   GKE_REGION: us-east1
-  GKE_ZONE: us-east1-c
+  GKE_ZONE: us-east1-b
   GKE_ADDITIONAL_ZONE: us-east1-b
   GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
   GKE_SA_EMAIL: ${{ secrets.GKE_SA_EMAIL }}
