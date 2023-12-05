@@ -7,7 +7,7 @@ on:
 
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: old-onepet-cluster
+  GKE_CLUSTER: testetestando
   GKE_APP_NAME: old-onepet-app
   GKE_SERVICE: old-onepet-service
   GKE_SERVICE_ACCOUNT: old-onepet-serviceaccount
