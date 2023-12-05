@@ -1,11 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: example-service
+  name: loadbalancer-service
 spec:
   selector:
-    app: example-app
+    app: $GKE_APP_NAME
   ports:
-  - port: 9000
-    targetPort: 9000
-    name: fastcgi
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
