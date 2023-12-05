@@ -16,6 +16,13 @@ spec:
       containers:
       - name: $GKE_APP_NAME
         image: $GKE_REGION-docker.pkg.dev/$GKE_PROJECT/$GKE_PROJECT/$GKE_APP_NAME:$GITHUB_SHA
+        resources:
+          requests: 
+            cpu: "0.05"
+            memory: 128Mi
+          limits:
+            cpu: "0.05"
+            memory: 128Mi
         ports:
         - containerPort: 80
         env:
