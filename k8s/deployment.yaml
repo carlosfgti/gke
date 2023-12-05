@@ -20,4 +20,12 @@ spec:
         - containerPort: 80
         env:
           - name: DB_HOST
-            value: "host de exemplo"
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: DB_HOST
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: DB_PASSWORD

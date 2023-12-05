@@ -21,6 +21,8 @@ env:
   APP_VERSION: ${{ github.sha }}
   GKE_APP_PORT: 80
   GITHUB_SHA: ${{ github.sha }}
+  DB_HOST: ${{ secrets.DB_HOST }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
 jobs:
   build:
@@ -72,9 +74,9 @@ jobs:
     - name: Deploy
       working-directory: k8s
       run: |
+        envsubst < secret.yaml | kubectl apply -f -
         envsubst < deployment.yaml | kubectl apply -f -
         envsubst < service.yaml | kubectl apply -f -
         cat deployment.yaml
         kubectl get pods -o wide
-        kubectl get svc -o wide 
-        sleep 60
+        kubectl get svc -o wide
