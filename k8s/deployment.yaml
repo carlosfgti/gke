@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:${SHORT_SHA}'
+        image: us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest
         imagePullPolicy: Always
         resources:
           requests: 
