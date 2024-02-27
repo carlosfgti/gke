@@ -15,6 +15,7 @@ spec:
       containers:
       - name: my-app
         image: us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest
+        imagePullPolicy: Always
         resources:
           requests: 
             cpu: "0.3"
