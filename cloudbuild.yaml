@@ -1,15 +1,15 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-    args: [
-            'build',
-            '-t',
-            'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:${SHORT_SHA}',
-            '-t',
-            'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest',
-            '--cache-from',
-            'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest',
-            '.'
-          ]
+  id: Build
+  args:
+  - 'build'
+  - '-t'
+  - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:${SHORT_SHA}'
+  - '-t'
+  - 'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest'
+  - '--cache-from',
+  - 'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest'
+  - '.'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: Push
