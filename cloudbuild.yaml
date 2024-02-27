@@ -16,10 +16,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push',  'us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:${SHORT_SHA}']
 
-# Store images in Google Artifact Registry 
-images:
-  - us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:${SHORT_SHA}
-  - us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:latest
+  # Store images in Google Artifact Registry 
+  images:
+    - us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:${SHORT_SHA}
+    - us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:latest
 
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Deploy
