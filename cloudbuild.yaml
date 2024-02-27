@@ -22,3 +22,4 @@ steps:
          SHORT_SHA=$(${SHORT_SHA})
          gcloud container clusters get-credentials old-homolog-cluster --zone us-east1-c --project soy-lore-407417
          kubectl apply -f k8s/deployment.yaml
+         kubectl set image us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:${SHORT_SHA}
