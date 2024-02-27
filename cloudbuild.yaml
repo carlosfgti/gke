@@ -19,5 +19,6 @@ steps:
   args:
     - '-c'
     - |
+         export SHORT_SHA = $(${SHORT_SHA})
          gcloud container clusters get-credentials old-homolog-cluster --zone us-east1-c --project soy-lore-407417
          kubectl apply -f k8s/deployment.yaml
