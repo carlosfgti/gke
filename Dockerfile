@@ -1,5 +1,5 @@
 # Use the official PHP 5.6 FPM image as the base image
-FROM php:5.6-fpm as php-builder
+FROM php:8.1-fpm
 
 # Set the working directory in the container
 WORKDIR /var/www
