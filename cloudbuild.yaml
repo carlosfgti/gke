@@ -1,5 +1,22 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'Dockerfile', '-t', 'us-east1.pkg.dev/old-app-homolog/app:latest', '.']
+  # Docker Build
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+            'build',
+            '-t',
+            'us-east1-docker.pkg.dev/old-app-homolog/my-app:${SHORT_SHA}',
+            '-t',
+            'us-east1-docker.pkg.dev/old-app-homolog/my-app:latest',
+            '--cache-from',
+            'us-east1-docker.pkg.dev/old-app-homolog/my-app:latest',
+            '.'
+          ]
+
+  # Docker push to Google Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push',  'us-east1-docker.pkg.dev/old-app-homolog/my-app:${SHORT_SHA}']
+
+# Store images in Google Artifact Registry 
 images:
-- 'us-east1.pkg.dev/old-app-homolog/app:latest'
+  - us-east1-docker.pkg.dev/old-app-homolog/my-app:${SHORT_SHA}
+  - us-east1-docker.pkg.dev/old-app-homolog/my-app:latest
