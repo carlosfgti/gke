@@ -20,3 +20,15 @@ steps:
 images:
   - us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:${SHORT_SHA}
   - us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:latest
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Deploy
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+         PROJECT=$$(gcloud config get-value core/project)          
+         gke-gcloud-auth-plugin --version
+         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+         gcloud container clusters get-credentials "gke-cluster" --project "soy-lore-407417"  --zone "us-east1-c"  
+         kubectl apply -f k8s/deployment.yml

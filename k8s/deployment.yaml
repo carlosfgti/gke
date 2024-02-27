@@ -1,31 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $GKE_APP_NAME
+  name: my-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: $GKE_APP_NAME
+      app: my-app
   template:
     metadata:
       labels:
-        app: $GKE_APP_NAME
+        app: my-app
     spec:
-      #serviceAccountName: $GKE_SERVICE_ACCOUNT
       containers:
-      - name: $GKE_APP_NAME
-        image: $GKE_REGION-docker.pkg.dev/$GKE_PROJECT/$GKE_PROJECT/$GKE_APP_NAME:$GITHUB_SHA
+      - name: my-app
+        image: us-east1-docker.pkg.dev/soy-lore-407417/old-app-homolog/homolog/my-app:latest
+        resources:
+          requests: 
+            cpu: "0.3"
+            memory: 500Mi
+          limits:
+            cpu: "0.3"
+            memory: 500Mi
         ports:
         - containerPort: 80
-        env:
-          - name: DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: app-secret
-                key: DB_HOST
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: app-secret
-                key: DB_PASSWORD
+        readinessProbe:
+          httpGet:
+            path: /healthz.php
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
