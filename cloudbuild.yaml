@@ -5,8 +5,6 @@ steps:
   - 'build'
   - '-t'
   - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:${SHORT_SHA}'
-  - '-t'
-  - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest'
   - '--cache-from',
   - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest'
   - '.'
