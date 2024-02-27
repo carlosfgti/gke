@@ -19,8 +19,5 @@ steps:
   args:
     - '-c'
     - |
-         PROJECT=$$(gcloud config get-value core/project)          
-         gke-gcloud-auth-plugin --version
-         export USE_GKE_GCLOUD_AUTH_PLUGIN=True 
          gcloud container clusters get-credentials old-homolog-cluster --zone us-east1-c --project soy-lore-407417
          kubectl apply -f k8s/deployment.yaml
