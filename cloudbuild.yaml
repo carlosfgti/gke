@@ -4,14 +4,14 @@ steps:
   args:
   - 'build'
   - '-t'
-  - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest'
+  - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:${SHORT_SHA}'
   - '.'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: Push
   args:
   - 'push'
-  - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:latest'
+  - 'us-east1-docker.pkg.dev/soy-lore-407417/web-app-repo/web-app:${SHORT_SHA}'
 
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Deploy
