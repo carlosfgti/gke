@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'Dockerfile', '-t', 'us-east1.pkg.dev/old-onepet-homolog/app/homolog:latest', '.']
+  args: ['build', '-f', 'Dockerfile', '-t', 'us-east1.pkg.dev/old-app-homolog/app:latest', '.']
 images:
-- 'us-east1.pkg.dev/old-onepet-homolog/app/homolog:latest'
+- 'us-east1.pkg.dev/old-app-homolog/app:latest'
